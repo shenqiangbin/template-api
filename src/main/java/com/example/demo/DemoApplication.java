@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.security.CustomUserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -44,6 +45,10 @@ public class DemoApplication {
     @Configuration
     //@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
     protected  static class  SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+		@Autowired
+		private CustomUserDetailService customUserDetailService;
+
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             //super.configure(http);
@@ -58,7 +63,7 @@ public class DemoApplication {
 
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.userDetailsService(new CustomUserDetailService()).passwordEncoder(new BCryptPasswordEncoder());
+            auth.userDetailsService(customUserDetailService).passwordEncoder(new BCryptPasswordEncoder());
         }
 
 

@@ -1,0 +1,10 @@
+datasource:
+  mysql:
+    #JdbcUrl: jdbc:mysql://127.0.0.1:3306/javablog?useUnicode=true&characterEncoding=utf8&useSSL=false
+    JdbcUrl: jdbc:mysql://127.0.0.1:3306/template?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    #DriverClassName: com.mysql.jdbc.Driver
+    DriverClassName: com.mysql.cj.jdbc.Driver
+    Username: root
+    Password: 123456
+    useSSL: false
+ 
