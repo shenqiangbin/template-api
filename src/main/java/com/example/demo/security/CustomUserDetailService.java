@@ -36,7 +36,9 @@ public class CustomUserDetailService implements UserDetailsService {
 
             String encodePassword = new BCryptPasswordEncoder().encode(password);
             List<GrantedAuthority> authorities = getAuthorities(userName);
-            User user = new User(userName, encodePassword, authorities);
+
+            MyUser user = new MyUser(userName, encodePassword, authorities);
+            user.setRealName(userDb.getUserName());
 
             return user;
 
