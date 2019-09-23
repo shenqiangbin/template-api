@@ -17,4 +17,7 @@ public class UserService {
 		return userRepository.getUserByUserCode(userCode);
 	}
 
+	public boolean ChangePwd(String loginUser, String newPwd) {
+		return userRepository.ChangePwd(loginUser,newPwd);
+	}
 }

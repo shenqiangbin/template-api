@@ -21,11 +21,20 @@ public class UserRepository {
         params.add(userCode);
 
         List<User> users = sqlHelper.query(sql, params, User.class);
-        if(users!=null && users.size() > 0)
+        if (users != null && users.size() > 0)
             return users.get(0);
-        else if(users.size() > 1)
+        else if (users.size() > 1)
             throw new Exception("usercode重复:" + userCode);
 
         return null;
+    }
+
+    public boolean ChangePwd(String loginUser, String newPwd) {
+        List<Object> params = new ArrayList<>();
+        params.add(newPwd);
+        params.add(loginUser);
+        params.add(loginUser);
+        int rtn = sqlHelper.update("update user set password = ?,modifyuser = ?,modifytime=now() where usercode = ?", params);
+        return rtn > 0;
     }
 }
