@@ -7,4 +7,10 @@ datasource:
     Username: root
     Password: 123456
     useSSL: false
- 
+upload:
+  uploadFolder: E:/uploadFolder/user
+spring:
+  servlet:
+    multipart:
+      max-file-size: 35MB  # 如果前端分块每10M一块，最后一块如果是19M，那么则会按19M上传，所以要设置大些
+      maxRequestSize: 35MB
