@@ -123,7 +123,7 @@ public class UploadController {
                 //合并后删除该块
                 Files.delete(path);
             }
-
+            response.setData(targetFile);
             response.set(200, "success");
         } catch (Exception e) {
             logger.error(e.toString());
