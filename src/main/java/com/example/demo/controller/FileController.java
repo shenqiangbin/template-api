@@ -78,13 +78,6 @@ public class FileController {
             }
             while (result != -1);
 
-//            byte[] byteArr = ("标题,内容\n").getBytes();
-//            outputStream.write(byteArr);
-//
-//            for (int i = 0; i < 10000 * 100; i++) {
-//                outputStream.write(String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9).getBytes());
-//            }
-
             outputStream.flush();
             outputStream.close();
         } catch (IOException e) {
@@ -122,5 +115,18 @@ public class FileController {
     private void log(Object obj) {
         System.out.println(obj);
     }
+
+    @GetMapping("output/string")
+    private void outputStr(HttpServletResponse response) {
+
+        try {
+            ServletOutputStream outputStream = response.getOutputStream();
+            byte[] data = "abc".getBytes();
+            outputStream.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
