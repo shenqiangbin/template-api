@@ -6,13 +6,20 @@ import com.example.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -21,6 +28,21 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/user/info")
+    private String info() {
+        return "info";
+    }
+
+    @GetMapping("/tel/login")
+    public Response<String> telLogin(String tel, String smsCode, HttpSession session) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("user"));
+        Authentication auth = new UsernamePasswordAuthenticationToken("tel", "", authorities);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        String sessionId = session.getId();
+        return new Response(200, sessionId);
+    }
 
     @PostMapping("/user/changePwd")
     public Response changePwd(String oldPwd, String newPwd, Principal user, HttpSession session) {
