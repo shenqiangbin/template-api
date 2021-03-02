@@ -1,6 +1,8 @@
-package com.example.demo.model;
+package com.example.demo.model.userInfo;
 
-public class User extends BaseModel{
+import com.example.demo.model.BaseModel;
+
+public class User extends BaseModel {
 
 	private String userCode;
 	private String password;

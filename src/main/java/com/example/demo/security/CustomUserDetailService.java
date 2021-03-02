@@ -1,10 +1,11 @@
 package com.example.demo.security;
 
+import com.example.demo.model.userInfo.Role;
+import com.example.demo.service.RoleService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +20,8 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -27,10 +30,10 @@ public class CustomUserDetailService implements UserDetailsService {
 
         try {
 
-            com.example.demo.model.User userDb = userService.getUserByUserCode(userName);
+            com.example.demo.model.userInfo.User userDb = userService.getUserByUserCode(userName);
 
-			if(userDb == null)
-				throw new UsernameNotFoundException("用户名或密码不正确");
+            if (userDb == null)
+                throw new UsernameNotFoundException("用户名或密码不正确");
 
             String password = userDb.getPassword();
 
@@ -52,13 +55,13 @@ public class CustomUserDetailService implements UserDetailsService {
 
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-        authorities.add(new SimpleGrantedAuthority("role_user"));
+        //authorities.add(new SimpleGrantedAuthority("role_user"));
 
         //data from database
-//		List<Role> roles = roleService.getRolesByUserCode(userName);
-//		if(roles != null) {
-//			roles.forEach( r -> authorities.add(new SimpleGrantedAuthority(r.getRoleName())));
-//		}
+        List<Role> roles = roleService.getRolesByUserId(userName);
+        if (roles != null) {
+            roles.forEach(r -> authorities.add(new SimpleGrantedAuthority(r.getId().toString())));
+        }
 
         return authorities;
     }

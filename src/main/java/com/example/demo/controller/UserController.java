@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.base.Response;
-import com.example.demo.model.User;
+import com.example.demo.model.userInfo.User;
 import com.example.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;

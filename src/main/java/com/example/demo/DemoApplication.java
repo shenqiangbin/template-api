@@ -1,23 +1,21 @@
 package com.example.demo;
 
+import com.example.demo.security.access.CustomAccessDeniedHandler;
 import com.example.demo.security.CustomUserDetailService;
 import com.example.demo.security.MyAuthenticationFailureHandler;
 import com.example.demo.security.MyAuthenticationSuccessHandler;
+import com.example.demo.security.access.MySecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.session.MapSession;
 import org.springframework.session.MapSessionRepository;
 import org.springframework.session.SessionRepository;
@@ -72,11 +70,16 @@ public class DemoApplication {
 
         @Autowired
         private CustomUserDetailService customUserDetailService;
+        @Autowired
+        private CustomAccessDeniedHandler customAccessDeniedHandler;
+        @Autowired
+        private MySecurityFilter mySecurityFilter;
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             //super.configure(http);
             http
+                    .addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class)
                     //.httpBasic()
                     //.and().
                     .formLogin()
@@ -88,7 +91,7 @@ public class DemoApplication {
                     .antMatchers("/index.html", "/", "home", "login", "/tel/login").permitAll()
                     .anyRequest().authenticated();
 
-
+            http.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
         }
 
         @Override
