@@ -16,6 +16,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
 
+        httpServletResponse.setContentType("application/json;charset=utf-8");
         String str = JSONUtil.toString(new Response(Response.LOGINFAIL_CODE, "登录失败"));
         httpServletResponse.getWriter().write(str);
     }

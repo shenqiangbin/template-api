@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.security.CustomAuthenticationEntryPoint;
 import com.example.demo.security.access.CustomAccessDeniedHandler;
 import com.example.demo.security.CustomUserDetailService;
 import com.example.demo.security.MyAuthenticationFailureHandler;
@@ -80,18 +81,20 @@ public class DemoApplication {
             //super.configure(http);
             http
                     .addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class)
-                    //.httpBasic()
-                    //.and().
+                    .authorizeRequests()
+                    .antMatchers("/index.html", "/", "home", "login", "/tel/login").permitAll()
+                    .anyRequest().authenticated().
+                    and()
                     .formLogin()
                     .successHandler(new MyAuthenticationSuccessHandler())
                     .failureHandler(new MyAuthenticationFailureHandler())
                     //.and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                     .and().csrf().disable()
-                    .authorizeRequests()
-                    .antMatchers("/index.html", "/", "home", "login", "/tel/login").permitAll()
-                    .anyRequest().authenticated();
+                    ;
 
-            http.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
+            http.exceptionHandling()
+                    .accessDeniedHandler(customAccessDeniedHandler)
+                    .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
         }
 
         @Override

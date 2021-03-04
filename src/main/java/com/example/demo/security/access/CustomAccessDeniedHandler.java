@@ -15,6 +15,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException {
+        httpServletResponse.setContentType("application/json;charset=utf-8");
         String str = JSONUtil.toString(new Response(HttpServletResponse.SC_FORBIDDEN, "权限不足"));
         httpServletResponse.getWriter().write(str);
     }

@@ -33,6 +33,11 @@ public class UserController {
         return "info";
     }
 
+    @GetMapping("/user/info2")
+    private String info2() {
+        return "info2";
+    }
+
     @GetMapping("/tel/login")
     public Response<String> telLogin(String tel, String smsCode, HttpSession session) {
         List<GrantedAuthority> authorities = new ArrayList<>();

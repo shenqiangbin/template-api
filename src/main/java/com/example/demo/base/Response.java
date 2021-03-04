@@ -8,6 +8,8 @@ public class Response<T> {
     public final static int CHECKFAIL_CODE = 400;
     //登录失败
     public final static int LOGINFAIL_CODE = 301;
+    //没有登录
+    public final static int NOT_LOGIN = 302;
 
     private int code;
     private T data;
