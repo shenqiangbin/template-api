@@ -7,9 +7,9 @@ public class Response<T> {
     //校验失败
     public final static int CHECKFAIL_CODE = 400;
     //登录失败
-    public final static int LOGINFAIL_CODE = 301;
+    public final static int LOGINFAIL_CODE = 302;
     //没有登录
-    public final static int NOT_LOGIN = 302;
+    public final static int NOT_LOGIN = 301;
 
     private int code;
     private T data;

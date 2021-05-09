@@ -82,7 +82,7 @@ public class DemoApplication {
             http
                     .addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class)
                     .authorizeRequests()
-                    .antMatchers("/index.html", "/", "home", "login", "/tel/login").permitAll()
+                    .antMatchers("/index.html", "/", "home", "/login", "/tel/login").permitAll()
                     .anyRequest().authenticated().
                     and()
                     .formLogin()

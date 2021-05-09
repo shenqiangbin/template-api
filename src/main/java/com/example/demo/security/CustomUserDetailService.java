@@ -52,15 +52,13 @@ public class CustomUserDetailService implements UserDetailsService {
 
     private List<GrantedAuthority> getAuthorities(String userName) throws Exception {
 
-
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
         //authorities.add(new SimpleGrantedAuthority("role_user"));
-
         //data from database
-        List<Role> roles = roleService.getRolesByUserId(userName);
+        List<Role> roles = roleService.getRolesByUserCode(userName);
         if (roles != null) {
-            roles.forEach(r -> authorities.add(new SimpleGrantedAuthority(r.getId().toString())));
+            roles.forEach(r -> authorities.add(new SimpleGrantedAuthority(r.getRoleName())));
         }
 
         return authorities;

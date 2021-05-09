@@ -23,10 +23,12 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
 
         LoginSuccessResult loginSuccessResult = new LoginSuccessResult();
         loginSuccessResult.setSessionId(request.getSession().getId());
-        loginSuccessResult.setUserDetails((UserDetails) authentication.getDetails());
+        MyUser myUser = (MyUser) authentication.getPrincipal();
+        loginSuccessResult.setMyUser(myUser.toMyUserDTO());
 
         String str = JSONUtil.toString(Response.success(loginSuccessResult));
 
+        response.setContentType("application/json;charset=utf-8");
         response.getWriter().write(str);
 
         //super.onAuthenticationSuccess(request, response, authentication);

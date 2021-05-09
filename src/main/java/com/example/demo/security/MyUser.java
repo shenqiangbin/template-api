@@ -20,4 +20,34 @@ public class MyUser extends User {
     public void setRealName(String realName) {
         this.realName = realName;
     }
+
+    public MyUserDTO toMyUserDTO() {
+        return new MyUserDTO(this.realName, this.getUsername());
+    }
+
+    public class MyUserDTO {
+        private String realName;
+        private String userName;
+
+        public String getRealName() {
+            return realName;
+        }
+
+        public void setRealName(String realName) {
+            this.realName = realName;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public MyUserDTO(String realName, String userName) {
+            this.realName = realName;
+            this.userName = userName;
+        }
+    }
 }

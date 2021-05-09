@@ -19,4 +19,8 @@ public class RoleService {
 	public List<Role> getRolesByUserId(String userId) {
 		return roleRepository.getRolesByUserId(userId);
 	}
+
+	public List<Role> getRolesByUserCode(String userCode) {
+		return roleRepository.getRolesByUserCode(userCode);
+	}
 }

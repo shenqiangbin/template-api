@@ -1,18 +1,18 @@
 package com.example.demo.model;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import com.example.demo.security.MyUser;
 
 public class LoginSuccessResult {
 
-    private UserDetails userDetails;
+    private MyUser.MyUserDTO myUser;
     private String sessionId;
 
-    public UserDetails getUserDetails() {
-        return userDetails;
+    public MyUser.MyUserDTO getMyUser() {
+        return myUser;
     }
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
+    public void setMyUser(MyUser.MyUserDTO myUser) {
+        this.myUser = myUser;
     }
 
     public String getSessionId() {
